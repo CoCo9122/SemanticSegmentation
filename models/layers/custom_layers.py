@@ -6,7 +6,7 @@ class CustomSigmoid (tf.keras.layers.Layer):
         super(CustomSigmoid, self).__init__(**kwargs)
 
     def function(self, x):
-        return 1/(1 + np.exp(-x))
+        return 1/(1 + tf.exp(-x))
 
     def call(self, inputs):
         return self.function(inputs)
