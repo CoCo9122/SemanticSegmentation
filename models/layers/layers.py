@@ -1,7 +1,7 @@
 import tensorflow as tf
 import tensorflow_addons as tfa
 
-import custom_layers
+from .custom_layers import *
 
 def Add(inputs, ):
     """
@@ -90,6 +90,30 @@ def Conv2D(inputs, c, ks, s, p='same', ki = 'he_normal', ub = False):
     """
     return tf.keras.layers.Conv2D(filters=c, kernel_size=ks, strides=s, padding=p, kernel_initializer=ki, use_bias=ub)(inputs)
 
+def Conv2DTranspose(inputs, c, ks, s, p='same', ub=False):
+    """
+    A simple Conv2DTranspose layer.
+
+    parameter:
+      inputs: tf.keras.layers
+        The layer input.
+      c: int
+        Output channels.
+      ks: int or tuple(2 dimensions)
+        It is kernel_size.
+      s: int or tuple(2 dimensions)
+        strides.
+      p: string
+        Default padding is 'same'.
+      ub: boolean
+        If you use use bias, ub = Ture.
+
+    return:
+      Conv2DTranspose:
+        tf.keras.Layer
+    """
+    return tf.keras.layers.Conv2DTranspose(c, kernel_size=ks, strides=s, padding=p, use_bias=ub)(inputs)
+
 def Dropout(inputs, r):
     """
     Applies Dropout to the input.
@@ -136,4 +160,4 @@ def Sigmoid(inputs, ):
       inputs: tf.keras.layers
         The layer input.
     """
-    return custom_layers.Sigmoid()(inputs)
+    return CustomSigmoid()(inputs)

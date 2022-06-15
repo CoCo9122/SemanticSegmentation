@@ -38,6 +38,12 @@ class TestLayers (unittest.TestCase):
         y = layers.Conv2D(x, 32, (3, 3), 2)
         self.assertEqual((4, 14, 14, 32), y.shape)
 
+    def test_conv2dtranspose(self, ):
+        input_shape = (4, 28, 28, 32)
+        x = tf.random.normal(input_shape)
+        y = layers.Conv2DTranspose(x, 32, (3, 3), 2)
+        self.assertEqual((4, 56, 56, 32), y.shape)
+
     def test_dropout(self, ):
         input_shape = (4, 28, 28, 3)
         x = tf.random.normal(input_shape)
