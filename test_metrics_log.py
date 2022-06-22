@@ -13,7 +13,7 @@ class TestMetricsLog(unittest.TestCase):
             'Dice Loss': [tf.keras.metrics.Mean(), DiceLoss],
             'BinaryCrossEntropy': [tf.keras.metrics.Mean(), BinaryCrossEntropy],
         }
-        train_log = MetricsTrainLog(metrics)
+        train_log = MetricsLog(metrics)
         self.assertEqual(
             {
                 'Train Recall': [],
@@ -40,6 +40,24 @@ class TestMetricsLog(unittest.TestCase):
         self.assertEqual(
             [1, 1, 1, 1, 0, 0, 0],
             [v[-1] for v in train_log.get_log().values()]
+        )
+        metrics = {
+            'Test Bce Dice Loss': [tf.keras.metrics.Mean(), BceDiceLoss],
+            'Test Dice Loss': [tf.keras.metrics.Mean(), DiceLoss],
+            'Test BinaryCrossEntropy': [tf.keras.metrics.Mean(), BinaryCrossEntropy],
+        }
+        train_log = MetricsLog(metrics, training=False)
+        self.assertEqual(
+            {
+                'Test Recall': [],
+                'Test Precision': [],
+                'Test Dice Coefficient': [],
+                'Test IoU': [],
+                'Test Bce Dice Loss': [],
+                'Test Dice Loss': [],
+                'Test BinaryCrossEntropy': []
+            },
+            train_log.get_log()
         )
 
 if __name__ == '__main__':

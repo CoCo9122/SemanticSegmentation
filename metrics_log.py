@@ -4,20 +4,22 @@ import numpy as np
 
 from loss import *
 
-class MetricsTrainLog:
-    def __init__(self, metrics):
+class MetricsLog:
+    def __init__(self, metrics, training=True):
+        if training: s='Train' 
+        else: s='Test'
         self.metrics = {
-            'Train Recall': [tf.keras.metrics.Recall(), None],
-            'Train Precision': [tf.keras.metrics.Precision(), None],
-            'Train Dice Coefficient': [tf.keras.metrics.Mean(), DiceCoefficient],
-            'Train IoU': [tf.keras.metrics.Mean(), IoU]
+            '{} Recall'.format(s): [tf.keras.metrics.Recall(), None],
+            '{} Precision'.format(s): [tf.keras.metrics.Precision(), None],
+            '{} Dice Coefficient'.format(s): [tf.keras.metrics.Mean(), DiceCoefficient],
+            '{} IoU'.format(s): [tf.keras.metrics.Mean(), IoU]
         }
 
         self.metrics_logs = {
-            'Train Recall': [],
-            'Train Precision': [],
-            'Train Dice Coefficient': [],
-            'Train IoU': [],
+            '{} Recall'.format(s): [],
+            '{} Precision'.format(s): [],
+            '{} Dice Coefficient'.format(s): [],
+            '{} IoU'.format(s): [],
         }
 
         self.metrics.update(metrics)
